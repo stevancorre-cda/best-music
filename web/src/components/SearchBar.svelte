@@ -7,23 +7,23 @@
 	<span>
 		<Fa icon={faSearch} color="#626574" />
 	</span>
-	<input type="text" class="form-control" placeholder="Rechercher un artiste, un titre, ..." />
+	<input type="text" class="form-control" placeholder="Recherchez un artiste, un titre, ..." />
 </div>
 
 <style>
 	.search {
 		position: relative;
 	}
-    
-	.search input {
-        text-indent: 28px;
-        
-        background: #d2c8bf;
-        border: 1px solid #d2c8bf;
-        border-radius: 2em;
 
-        font-weight: 600;
-        color: #3a3c45;
+	.search input {
+		text-indent: 28px;
+
+		background: #d2c8bf;
+		border: 1px solid #d2c8bf;
+		border-radius: 2em;
+
+		font-weight: 600;
+		color: #3a3c45;
 	}
 
 	.search input:focus {
@@ -31,9 +31,9 @@
 		border: 1px solid #c1b3a7;
 	}
 
-    .search input::placeholder {
-        color: #787473;
-    }
+	.search input::placeholder {
+		color: #787473;
+	}
 
 	.search span {
 		position: absolute;
