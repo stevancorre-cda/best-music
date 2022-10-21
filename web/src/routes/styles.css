@@ -1,0 +1,7 @@
+@font-face {
+	font-family: "Fall In Love";
+	src: url("../lib/fonts/fall-in-love.woff2") format("woff2"),
+		url("../lib/fonts/fall-in-love.woff.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
