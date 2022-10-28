@@ -13,4 +13,10 @@ public final class Scraping {
 
         return parsePrice(element.getTextContent());
     }
+
+    public static String scrapDescription(final HtmlElement element) {
+        if (element == null) return "No description";
+
+        return element.getTextContent();
+    }
 }
