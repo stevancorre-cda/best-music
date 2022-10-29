@@ -1,13 +1,14 @@
 package com.stevancorre.cda.providers.abstraction;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Provider<TEntry> {
+public abstract class Provider {
     protected final WebClient client;
 
     protected Provider() {
@@ -18,7 +19,7 @@ public abstract class Provider<TEntry> {
         }};
     }
 
-    public static Provider<?>[] getProviders() {
+    public static Provider[] getProviders() {
         return ProvidersReflection.providers.toArray(new Provider[0]);
     }
 
@@ -27,12 +28,12 @@ public abstract class Provider<TEntry> {
             try {
                 final ArrayList<SearchResult> results = new ArrayList<>();
                 final HtmlPage page = client.getPage(getQueryUrl(query));
-                final List<TEntry> entries = scrapEntries(page);
+                final List<HtmlElement> entries = scrapEntries(page);
 
                 final int entriesCount = Math.min(limit, entries.size());
 
                 int count = 0;
-                for (final TEntry entry : entries) {
+                for (final HtmlElement entry : entries) {
                     if (count++ >= limit) break;
 
                     results.add(scrapNext(entry));
@@ -51,9 +52,9 @@ public abstract class Provider<TEntry> {
 
     protected abstract String getQueryUrl(final String query);
 
-    protected abstract List<TEntry> scrapEntries(final HtmlPage page);
+    protected abstract List<HtmlElement> scrapEntries(final HtmlPage page);
 
-    protected abstract SearchResult scrapNext(final TEntry source) throws IOException;
+    protected abstract SearchResult scrapNext(final HtmlElement source) throws IOException;
 
     public final void query(final String query, final ProviderCallback callback) throws IOException {
         query(query, Integer.MAX_VALUE, callback);

@@ -1,24 +1,25 @@
 package com.stevancorre.cda.providers;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.stevancorre.cda.providers.abstraction.Provider;
 import com.stevancorre.cda.providers.abstraction.SearchResult;
 
 import java.util.List;
 
-public class MesVinylesProvider extends Provider {
+public final class MesVinylesProvider extends Provider {
     @Override
-    protected String getQueryUrl(String query) {
+    protected String getQueryUrl(final String query) {
         return null;
     }
 
     @Override
-    protected List scrapEntries(HtmlPage page) {
+    protected List<HtmlElement> scrapEntries(final HtmlPage page) {
         return null;
     }
 
     @Override
-    protected SearchResult scrapNext(Object source) {
+    protected SearchResult scrapNext(final HtmlElement source) {
         return null;
     }
 }
