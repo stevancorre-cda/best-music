@@ -7,6 +7,7 @@ import com.stevancorre.cda.providers.abstraction.SearchResult;
 import java.io.IOException;
 import java.util.List;
 
+import static com.stevancorre.cda.utils.Scraping.scrapDescription;
 import static com.stevancorre.cda.utils.Scraping.scrapPrice;
 
 public final class CulturefactoryProvider extends Provider<HtmlArticle> {
@@ -35,7 +36,7 @@ public final class CulturefactoryProvider extends Provider<HtmlArticle> {
                 this,
                 "https://via.placeholder.com/500",
                 title.getTextContent(),
-                description == null ? "No description" : description.getTextContent(),
+                scrapDescription(description),
                 scrapPrice(price));
     }
 }

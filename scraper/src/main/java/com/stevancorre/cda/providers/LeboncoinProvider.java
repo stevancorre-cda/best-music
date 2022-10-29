@@ -10,9 +10,12 @@ import com.stevancorre.cda.providers.abstraction.SearchResult;
 import java.io.IOException;
 import java.util.List;
 
+import static com.stevancorre.cda.utils.Scraping.scrapDescription;
+import static com.stevancorre.cda.utils.Scraping.scrapPrice;
+
 public final class LeboncoinProvider extends Provider<HtmlAnchor> {
     @Override
-    protected String getQueryUrl(String query) {
+    protected String getQueryUrl(final String query) {
         return String.format("https://www.leboncoin.fr/recherche?text=%s", query.replace(" ", "%20"));
     }
 
@@ -35,16 +38,7 @@ public final class LeboncoinProvider extends Provider<HtmlAnchor> {
                 this,
                 "https://via.placeholder.com/500",
                 title.getTextContent(),
-                description == null ? "No description" : description.getTextContent(),
+                scrapDescription(description),
                 scrapPrice(price));
-    }
-
-    private static Double scrapPrice(final HtmlDivision price) {
-        if (price == null) return 0.0;
-
-        final String priceText = price
-                .getTextContent()
-                .replaceAll("(\\d+).*€.*", "$1");
-        return Double.parseDouble(priceText);
     }
 }
