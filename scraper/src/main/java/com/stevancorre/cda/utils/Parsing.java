@@ -8,7 +8,8 @@ public final class Parsing {
         if (source.toLowerCase().contains("don")) return 0;
 
         return Double.parseDouble(source
-                .replaceAll("(\\d+).*", "$1")
+                .replace(',', '.')
+                .replaceAll("[^0-9.]", "")
                 .trim());
     }
 }
