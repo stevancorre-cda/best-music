@@ -1,16 +1,16 @@
-package com.stevancorre.cda.providers;
+package com.stevancorre.cda.scraper.providers;
 
 import com.gargoylesoftware.htmlunit.html.*;
-import com.stevancorre.cda.providers.abstraction.Provider;
-import com.stevancorre.cda.providers.abstraction.SearchResult;
+import com.stevancorre.cda.scraper.providers.abstraction.Provider;
+import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 
 import java.io.IOException;
 import java.util.List;
 
-import static com.stevancorre.cda.utils.Formatting.formatQuery;
-import static com.stevancorre.cda.utils.Formatting.removeExtraSpaces;
-import static com.stevancorre.cda.utils.Scraping.scrapDescription;
-import static com.stevancorre.cda.utils.Scraping.scrapPrice;
+import static com.stevancorre.cda.scraper.utils.Formatting.formatQuery;
+import static com.stevancorre.cda.scraper.utils.Formatting.removeExtraSpaces;
+import static com.stevancorre.cda.scraper.utils.Scraping.scrapDescription;
+import static com.stevancorre.cda.scraper.utils.Scraping.scrapPrice;
 
 public final class DiscogsProvider extends Provider {
     @Override

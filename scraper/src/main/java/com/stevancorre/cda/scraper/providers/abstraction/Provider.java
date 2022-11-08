@@ -1,4 +1,4 @@
-package com.stevancorre.cda.providers.abstraction;
+package com.stevancorre.cda.scraper.providers.abstraction;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;

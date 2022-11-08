@@ -1,4 +1,4 @@
-package com.stevancorre.cda.providers.abstraction;
+package com.stevancorre.cda.scraper.providers.abstraction;
 
 public record SearchResult(String url,
                            Provider provider,

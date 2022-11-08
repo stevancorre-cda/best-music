@@ -1,4 +1,4 @@
-package com.stevancorre.cda.utils;
+package com.stevancorre.cda.scraper.utils;
 
 public final class Parsing {
     private Parsing() {

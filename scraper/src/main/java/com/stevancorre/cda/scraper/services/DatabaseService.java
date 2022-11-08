@@ -1,7 +1,7 @@
-package com.stevancorre.cda.services;
+package com.stevancorre.cda.scraper.services;
 
 import com.google.common.io.Resources;
-import com.stevancorre.cda.providers.abstraction.SearchResult;
+import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
 import java.io.BufferedReader;

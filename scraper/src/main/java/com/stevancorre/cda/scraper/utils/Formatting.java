@@ -1,4 +1,4 @@
-package com.stevancorre.cda.utils;
+package com.stevancorre.cda.scraper.utils;
 
 public final class Formatting {
     private Formatting() {

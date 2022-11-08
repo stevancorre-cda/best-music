@@ -1,4 +1,4 @@
-package com.stevancorre.cda.providers.abstraction;
+package com.stevancorre.cda.scraper.providers.abstraction;
 
 public interface ProviderCallback {
     void onDone(final SearchResult[] results);

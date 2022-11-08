@@ -1,4 +1,4 @@
-package com.stevancorre.cda.services;
+package com.stevancorre.cda.scraper.services;
 
 import java.io.IOException;
 import java.net.URL;

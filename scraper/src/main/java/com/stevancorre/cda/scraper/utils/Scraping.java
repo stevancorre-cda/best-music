@@ -1,8 +1,8 @@
-package com.stevancorre.cda.utils;
+package com.stevancorre.cda.scraper.utils;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
-import static com.stevancorre.cda.utils.Parsing.parsePrice;
+import static com.stevancorre.cda.scraper.utils.Parsing.parsePrice;
 
 public final class Scraping {
     private Scraping() {
