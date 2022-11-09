@@ -11,8 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +24,9 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public final class MainController {
+    @FXML
+    private MenuItem saveMenuItem;
+
     @FXML
     private TextField titleInput;
     @FXML
@@ -74,6 +81,33 @@ public final class MainController {
             providersContainer.getChildren().add(checkbox);
             checkboxes.add(checkbox);
         }
+
+        saveMenuItem.setDisable(true);
+    }
+
+    @FXML
+    private void onFileSaveMenuClick() {
+        // TODO: disable button when result null, same for db export btw
+        if (results == null) return;
+
+        final FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select file to export scraping results");
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text files", "*.txt"));
+
+        final File file = chooser.showSaveDialog(titleInput.getScene().getWindow());
+        if (file == null) return;
+
+        try {
+            final PrintWriter writer = new PrintWriter(file);
+            writer.println(getStringResults());
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        // TODO: might move to service
+        // TODO: display error
+        // TODO: display success
     }
 
     @FXML
@@ -90,22 +124,18 @@ public final class MainController {
 
         progressBar.setProgress(0);
         progressIndicatorLabel.setText("Connecting...");
-        
+
         final Provider provider = new DiscogsProvider();
         provider.query("elvis", 4, new ProviderCallback() {
             @Override
             public void onDone(final SearchResult[] newResults) {
                 results = newResults;
 
-                final String delimiter = String.format("\n%s\n", "-".repeat(30));
-                final String resultsText =
-                        Arrays.stream(results)
-                                .map(SearchResult::toString)
-                                .collect(Collectors.joining(delimiter));
-
-                resultTextArea.setText(resultsText);
+                resultTextArea.setText(getStringResults());
                 formPane.setDisable(false);
                 updateProgressIndicatorLabelText("Done");
+
+                saveMenuItem.setDisable(false);
             }
 
             @Override
@@ -138,5 +168,15 @@ public final class MainController {
         Platform.runLater(() -> {
             progressIndicatorLabel.setText(text);
         });
+    }
+
+    private String getStringResults() {
+        if (results == null) return "";
+
+        final String delimiter = String.format("\n%s\n", "-".repeat(30));
+
+        return Arrays.stream(results)
+                .map(SearchResult::toString)
+                .collect(Collectors.joining(delimiter));
     }
 }
