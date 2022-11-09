@@ -14,6 +14,9 @@ public final class SendinblueController {
     @FXML
     private TextField senderEmailInput;
 
+    @FXML
+    private TextField senderNameInput;
+
     private SettingsService.Settings settings;
 
     @FXML
@@ -22,6 +25,7 @@ public final class SendinblueController {
 
         apiKeyInput.setText(settings.getSibApiKey());
         senderEmailInput.setText(settings.getSibSenderEmail());
+        senderNameInput.setText(settings.getSibSenderName());
     }
 
     @FXML
@@ -30,6 +34,7 @@ public final class SendinblueController {
 
         settings.setSibApiKey(apiKeyInput.getText());
         settings.setSibSenderEmail(senderEmailInput.getText());
+        settings.setSibSenderName(senderNameInput.getText());
 
         SettingsService.saveSettings(settings);
 

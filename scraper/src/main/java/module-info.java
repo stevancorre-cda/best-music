@@ -9,6 +9,7 @@ module com.stevancorre.cda.scraper {
     requires com.google.common;
 
     opens com.stevancorre.cda.scraper.controllers to javafx.fxml;
+    opens com.stevancorre.cda.scraper.controllers.files to javafx.fxml;
     opens com.stevancorre.cda.scraper.controllers.settings to javafx.fxml;
     exports com.stevancorre.cda.scraper;
 }
