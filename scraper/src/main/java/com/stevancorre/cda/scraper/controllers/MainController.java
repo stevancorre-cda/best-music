@@ -126,6 +126,12 @@ public final class MainController {
     }
 
     @FXML
+    private void onDatabaseSettingsMenuClick() throws IOException {
+        final Popup popup = new Popup("Sendinblue settings", "/fxml/settings/database-view.fxml", 520, 360);
+        popup.show();
+    }
+
+    @FXML
     private void onSearchButtonClick() {
         formPane.setDisable(true);
 
