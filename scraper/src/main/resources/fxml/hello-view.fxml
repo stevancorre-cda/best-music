@@ -27,7 +27,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Save to file">
+              <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onFileSaveMenuClick" text="Save to file">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -54,9 +54,9 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Settings">
             <items>
-              <MenuItem mnemonicParsing="false" text="Sendinblue">
+              <MenuItem mnemonicParsing="false" onAction="#onSendinblueSettingsMenuClick" text="Sendinblue">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
+                        <KeyCodeCombination alt="DOWN" code="S" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <MenuItem mnemonicParsing="false" text="Database">
