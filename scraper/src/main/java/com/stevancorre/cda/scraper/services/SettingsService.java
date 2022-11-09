@@ -25,6 +25,7 @@ public final class SettingsService {
         return new Settings(
                 properties.getProperty("SIB_API_KEY"),
                 properties.getProperty("SIB_SENDER_EMAIL"),
+                properties.getProperty("SIB_SENDER_NAME"),
                 properties.getProperty("DB_SERVER"),
                 properties.getProperty("DB_PORT"),
                 properties.getProperty("DB_NAME"),
@@ -37,6 +38,7 @@ public final class SettingsService {
         final String properties = "" +
                 "SIB_API_KEY=" + settings.getSibApiKey() + '\n' +
                 "SIB_SENDER_EMAIL=" + settings.getSibSenderEmail() + '\n' +
+                "SIB_SENDER_NAME=" + settings.getSibSenderName() + '\n' +
                 "DB_SERVER=" + settings.getDbHost() + '\n' +
                 "DB_PORT=" + settings.getDbPort() + '\n' +
                 "DB_NAME=" + settings.getDbName() + '\n' +
@@ -52,6 +54,7 @@ public final class SettingsService {
     public static final class Settings {
         private String sibApiKey;
         private String sibSenderEmail;
+        private String sibSenderName;
         private String dbHost;
         private String dbPort;
         private String dbName;
@@ -60,6 +63,7 @@ public final class SettingsService {
 
         public Settings(final String sibApiKey,
                         final String sibSenderEmail,
+                        final String sibSenderName,
                         final String dbHost,
                         final String dbPort,
                         final String dbName,
@@ -67,6 +71,7 @@ public final class SettingsService {
                         final String dbUserPassword) {
             this.sibApiKey = sibApiKey;
             this.sibSenderEmail = sibSenderEmail;
+            this.sibSenderName = sibSenderName;
             this.dbHost = dbHost;
             this.dbPort = dbPort;
             this.dbName = dbName;
@@ -75,7 +80,7 @@ public final class SettingsService {
         }
 
         public static Settings empty() {
-            return new Settings("", "", "", "", "", "", "");
+            return new Settings("", "", "", "", "", "", "", "");
         }
 
         public String getSibApiKey() {
@@ -84,6 +89,10 @@ public final class SettingsService {
 
         public String getSibSenderEmail() {
             return sibSenderEmail;
+        }
+
+        public String getSibSenderName() {
+            return sibSenderName;
         }
 
         public String getDbHost() {
@@ -112,6 +121,10 @@ public final class SettingsService {
 
         public void setSibSenderEmail(final String sibSenderEmail) {
             this.sibSenderEmail = sibSenderEmail;
+        }
+
+        public void setSibSenderName(final String sibSenderName) {
+            this.sibSenderName = sibSenderName;
         }
 
         public void setDbHost(final String dbHost) {
