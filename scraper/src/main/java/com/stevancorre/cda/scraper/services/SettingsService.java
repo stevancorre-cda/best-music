@@ -37,7 +37,7 @@ public final class SettingsService {
         final String properties = "" +
                 "SIB_API_KEY=" + settings.getSibApiKey() + '\n' +
                 "SIB_SENDER_EMAIL=" + settings.getSibSenderEmail() + '\n' +
-                "DB_SERVER=" + settings.getDbServer() + '\n' +
+                "DB_SERVER=" + settings.getDbHost() + '\n' +
                 "DB_PORT=" + settings.getDbPort() + '\n' +
                 "DB_NAME=" + settings.getDbName() + '\n' +
                 "DB_USER_NAME=" + settings.getDbUserName() + '\n' +
@@ -52,22 +52,22 @@ public final class SettingsService {
     public static final class Settings {
         private String sibApiKey;
         private String sibSenderEmail;
-        private String dbServer;
+        private String dbHost;
         private String dbPort;
         private String dbName;
         private String dbUserName;
         private String dbUserPassword;
 
-        public Settings(String sibApiKey,
-                        String sibSenderEmail,
-                        String dbServer,
-                        String dbPort,
-                        String dbName,
-                        String dbUserName,
-                        String dbUserPassword) {
+        public Settings(final String sibApiKey,
+                        final String sibSenderEmail,
+                        final String dbHost,
+                        final String dbPort,
+                        final String dbName,
+                        final String dbUserName,
+                        final String dbUserPassword) {
             this.sibApiKey = sibApiKey;
             this.sibSenderEmail = sibSenderEmail;
-            this.dbServer = dbServer;
+            this.dbHost = dbHost;
             this.dbPort = dbPort;
             this.dbName = dbName;
             this.dbUserName = dbUserName;
@@ -86,8 +86,8 @@ public final class SettingsService {
             return sibSenderEmail;
         }
 
-        public String getDbServer() {
-            return dbServer;
+        public String getDbHost() {
+            return dbHost;
         }
 
         public String getDbPort() {
@@ -114,8 +114,8 @@ public final class SettingsService {
             this.sibSenderEmail = sibSenderEmail;
         }
 
-        public void setDbServer(final String dbServer) {
-            this.dbServer = dbServer;
+        public void setDbHost(final String dbHost) {
+            this.dbHost = dbHost;
         }
 
         public void setDbPort(final String dbPort) {
