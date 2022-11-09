@@ -1,5 +1,6 @@
 package com.stevancorre.cda.scraper.controllers;
 
+import com.stevancorre.cda.scraper.controls.Popup;
 import com.stevancorre.cda.scraper.controls.ProviderCheckbox;
 import com.stevancorre.cda.scraper.providers.DiscogsProvider;
 import com.stevancorre.cda.scraper.providers.FnacProvider;
@@ -116,6 +117,12 @@ public final class MainController {
 
         // TODO: handle unsaved changes
         Platform.exit();
+    }
+
+    @FXML
+    private void onSendinblueSettingsMenuClick() throws IOException {
+        final Popup popup = new Popup("Sendinblue settings", "/fxml/settings/sendinblue-view.fxml", 520, 220);
+        popup.show();
     }
 
     @FXML
