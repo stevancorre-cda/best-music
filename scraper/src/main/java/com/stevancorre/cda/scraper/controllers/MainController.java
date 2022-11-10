@@ -277,8 +277,6 @@ public final class MainController {
 
     @FXML
     private void onHelpMenuClick() {
-        final URL url2 = Main.class.getResource("/user-guide.pdf");
-        System.out.println(url2);
         new Thread(() -> {
             try {
                 final URL url = getClass().getResource("/user-guide.pdf");
