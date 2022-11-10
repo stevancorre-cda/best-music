@@ -11,6 +11,9 @@ import java.util.List;
 import static com.stevancorre.cda.scraper.utils.Formatting.formatQuery;
 import static com.stevancorre.cda.scraper.utils.Scraping.*;
 
+/**
+ * Provider for fnac.com
+ */
 public final class FnacProvider extends Provider {
     @Override
     protected String getQueryUrl(final SearchQuery query) {

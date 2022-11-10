@@ -1,5 +1,8 @@
 package com.stevancorre.cda.scraper.providers.abstraction;
 
+/**
+ * Represents a genre
+ */
 public enum Genre {
     Blues(1),
     Jazz(2),
@@ -16,6 +19,11 @@ public enum Genre {
         this.id = value;
     }
 
+    /**
+     * Get the associated id
+     *
+     * @return The genre's id
+     */
     public int getId() {
         return id;
     }

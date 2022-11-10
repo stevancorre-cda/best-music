@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * The main application's controller
+ */
 public final class MainController {
     @FXML
     private MenuItem saveMenuItem;
@@ -63,6 +66,7 @@ public final class MainController {
 
     @FXML
     public void initialize() {
+        // set the date picker format to yyyy (20/11/2022 -> 2022)
         dateInput.setConverter(new StringConverter<>() {
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy");
 
@@ -79,6 +83,7 @@ public final class MainController {
             }
         });
 
+        // initialize checkbox with available providers
         checkboxes = new ArrayList<>();
         for (final Provider provider : Provider.getProviders()) {
             final ProviderCheckbox checkbox = new ProviderCheckbox(provider);
@@ -87,10 +92,13 @@ public final class MainController {
             checkboxes.add(checkbox);
         }
 
+        // initialize genres
+        genreInput.getItems().setAll(Genre.values());
+
+        // disable menus by default
         saveMenuItem.setDisable(true);
         sendEmailMenuItem.setDisable(true);
         sendDbMenuItem.setDisable(true);
-        genreInput.getItems().setAll(Genre.values());
     }
 
     @FXML
@@ -175,6 +183,7 @@ public final class MainController {
             return;
         }
 
+        // parse prices
         Double minPrice = null;
         Double maxPrice = null;
         try {
@@ -188,9 +197,11 @@ public final class MainController {
             }
         }
 
+        // pause interactions
         interactionsSetDisable(true);
 
         progressBar.setProgress(0);
+        progressBar.setStyle("-fx-accent: #dbf6fc");
         progressIndicatorLabel.setText("Connecting...");
 
         // please don't read this shit, it works (intellij told me to do that)
@@ -207,13 +218,18 @@ public final class MainController {
                         public void onDone(final SearchResult[] newResults) {
                             results.addAll(Arrays.stream(newResults).toList());
 
+                            // if all providers are done
                             if (++providersDone[0] == providers.length) {
+                                // resume interactions
                                 interactionsSetDisable(false);
 
                                 resultTextArea.setText(getStringResults());
                                 formPane.setDisable(false);
+
+                                // update progress
                                 progressBar.setProgress(1);
-                                updateProgressIndicatorLabelText("Done");
+                                progressBar.setStyle("-fx-accent: #a0f6fc");
+                                updateProgressIndicatorLabelText(String.format("%d results found", results.size()));
 
                                 saveMenuItem.setDisable(false);
                             }
@@ -228,6 +244,9 @@ public final class MainController {
 
                         @Override
                         public void onNext(final float percentage) {
+                            // if there is only one provider,
+                            // use the given percentage
+                            // otherwise just use how many scrapers are done on how many there are in total
                             if (providers.length == 1) {
                                 progressBar.setProgress(percentage);
 
@@ -247,6 +266,7 @@ public final class MainController {
     }
 
     private void interactionsSetDisable(final boolean disable) {
+        // enable or disable interactions
         formPane.setDisable(disable);
         saveMenuItem.setDisable(disable);
         sendEmailMenuItem.setDisable(disable);
@@ -255,6 +275,7 @@ public final class MainController {
 
     @FXML
     private void onResetFormButtonClick() {
+        // clear all inputs and checkboxes
         titleInput.clear();
         genreInput.valueProperty().set(null);
         dateInput.setValue(null);
@@ -273,6 +294,7 @@ public final class MainController {
     }
 
     private String getStringResults() {
+        // generate string for list of results
         if (results == null) return "";
 
         final String delimiter = String.format("\n%s\n", "-".repeat(30));

@@ -12,9 +12,13 @@ import static com.stevancorre.cda.scraper.utils.Formatting.formatQuery;
 import static com.stevancorre.cda.scraper.utils.Formatting.removeExtraSpaces;
 import static com.stevancorre.cda.scraper.utils.Scraping.*;
 
+/**
+ * Provider for discogs.com
+ */
 public final class DiscogsProvider extends Provider {
     @Override
     protected String getQueryUrl(final SearchQuery query) {
+        // initialize query params
         final String genreParam = query.hasGenre() ?
                 String.format("&genre=%s", query.genre()) : "";
         final String priceParam = query.hasPrice() ?

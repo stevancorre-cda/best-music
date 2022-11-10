@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public final class SendinblueController {
+/**
+ * The controller for the interface Settings/Sendinblue
+ */
+public final class SendinblueSettingsController {
     @FXML
     private TextField apiKeyInput;
 
@@ -21,6 +24,7 @@ public final class SendinblueController {
 
     @FXML
     private void initialize() throws IOException {
+        // load user settings from disk and initialize text fields
         settings = SettingsService.loadSettings();
 
         apiKeyInput.setText(settings.getSibApiKey());
@@ -30,6 +34,7 @@ public final class SendinblueController {
 
     @FXML
     private void onSaveButtonClick() throws IOException {
+        // save all settings to disk
         settings.setSibApiKey(apiKeyInput.getText());
         settings.setSibSenderEmail(senderEmailInput.getText());
         settings.setSibSenderName(senderNameInput.getText());

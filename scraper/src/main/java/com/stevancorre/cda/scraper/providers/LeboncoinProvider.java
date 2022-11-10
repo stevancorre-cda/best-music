@@ -12,9 +12,13 @@ import static com.stevancorre.cda.scraper.utils.Formatting.formatQuery;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapDescription;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapPrice;
 
+/**
+ * Provider for leboncoin.fr
+ */
 public final class LeboncoinProvider extends Provider {
     @Override
     protected String getQueryUrl(final SearchQuery query) {
+        // initialize query params
         final String priceParam = query.hasPrice() ?
                 String.format("&price=%f-%f", query.minPrice(), query.maxPrice()) : "";
 

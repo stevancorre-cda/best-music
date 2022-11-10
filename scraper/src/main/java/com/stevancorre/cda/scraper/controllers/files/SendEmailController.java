@@ -9,10 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sendinblue.ApiException;
-import sibModel.CreateSmtpEmail;
 
 import java.io.IOException;
 
+/**
+ * The controller for the interface Files/Send as email
+ */
 public final class SendEmailController {
     @FXML
     private TextField receiverInput;
@@ -21,17 +23,29 @@ public final class SendEmailController {
 
     private final MailService mailService;
 
+    /**
+     * Public constructor
+     */
     public SendEmailController() throws IOException {
+        // initialize the mail service with user settings
         final SettingsService.Settings settings = SettingsService.loadSettings();
         mailService = new MailService(settings.getSibApiKey(), settings.getSibSenderEmail(), settings.getSibSenderName());
     }
 
+    /**
+     * Set the active result content (that is going to be sent as an attachment)
+     *
+     * @param resultContent The future email attachment content
+     */
     public void setResultContent(final String resultContent) {
         this.resultContent = resultContent;
     }
 
     @FXML
     private void onSendButtonClick() {
+        // try to results as a mail
+        // if it fails, display an error alert
+        // otherwise display a success alert
         try {
             mailService.send(receiverInput.getText(), "Scraping results", "Automatic email from BestMusic's scraper", resultContent);
 

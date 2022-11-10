@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public final class DatabaseController {
+/**
+ * The controller for the interface Settings/Database
+ */
+public final class DatabaseSettingsController {
     @FXML
     private TextField dbHostInput;
     @FXML
@@ -23,6 +26,7 @@ public final class DatabaseController {
 
     @FXML
     private void initialize() throws IOException {
+        // load user settings from disk and initialize text fields
         settings = SettingsService.loadSettings();
 
         dbHostInput.setText(settings.getDbHost());
@@ -34,6 +38,7 @@ public final class DatabaseController {
 
     @FXML
     private void onSaveButtonClick() throws IOException {
+        // save all settings to disk
         settings.setDbHost(dbHostInput.getText());
         settings.setDbPort(dbPortInput.getText());
         settings.setDbName(dbNameInput.getText());

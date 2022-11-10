@@ -11,6 +11,9 @@ import java.util.List;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapDescription;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapPrice;
 
+/**
+ * Provider for culturefactory.fr
+ */
 public final class CulturefactoryProvider extends Provider {
     @Override
     protected String getQueryUrl(final SearchQuery query) {

@@ -8,6 +8,9 @@ import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 
 import java.util.List;
 
+/**
+ * Provider for vinylcorner.fr
+ */
 public class VinylcornerProvider extends Provider {
     @Override
     protected String getQueryUrl(final SearchQuery query) {

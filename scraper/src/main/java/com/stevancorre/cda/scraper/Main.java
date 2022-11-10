@@ -1,18 +1,19 @@
 package com.stevancorre.cda.scraper;
 
-import com.stevancorre.cda.scraper.controls.ErrorAlert;
-import com.stevancorre.cda.scraper.providers.abstraction.Genre;
-import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
-import com.stevancorre.cda.scraper.services.DatabaseService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+/**
+ * The main application
+ */
 public final class Main extends Application {
+    /**
+     * Called when the JavaFX application starts
+     */
     @Override
     public void start(final Stage stage) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/hello-view.fxml"));
@@ -22,7 +23,10 @@ public final class Main extends Application {
         stage.show();
     }
 
-    public static void main(final String[] args) throws SQLException, IOException {
+    /**
+     * The application entry point
+     */
+    public static void main(final String[] args) {
         launch();
     }
 }

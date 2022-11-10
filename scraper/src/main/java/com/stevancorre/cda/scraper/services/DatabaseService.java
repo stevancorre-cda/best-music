@@ -8,10 +8,14 @@ import java.io.*;
 import java.net.URL;
 import java.sql.*;
 
+/**
+ * The database service, used to make transactions with the db
+ */
 public final class DatabaseService {
     private static Connection getConnection() throws IOException, SQLException {
         final SettingsService.Settings settings = SettingsService.loadSettings();
 
+        // prepare the connection using the user settings
         return DriverManager.getConnection(
                 String.format(
                         "jdbc:mysql://%s:%s/%s",
@@ -22,8 +26,12 @@ public final class DatabaseService {
                 settings.getDbUserPassword());
     }
 
-    public void init(final String name) throws IOException, SQLException {
-        final URL url = Resources.getResource(name);
+    /**
+     * Initialize the database
+     */
+    public void init() throws IOException, SQLException {
+        // run the init.sql script
+        final URL url = Resources.getResource("init.sql");
         final ScriptRunner runner = new ScriptRunner(getConnection()) {{
             setLogWriter(null);
         }};
@@ -32,8 +40,14 @@ public final class DatabaseService {
         runner.runScript(reader);
     }
 
+    /**
+     * Upload array of results to the database
+     *
+     * @param results Array of results to upload
+     */
     public void uploadResults(final SearchResult[] results) throws SQLException, IOException {
         for (final SearchResult result : results) {
+            // send each result one by one
             try (final PreparedStatement statement = getConnection().prepareStatement(
                     "INSERT INTO `result` (`title`, `description`, `price`, `year`, `genreId`) VALUES (?, ?, ?, ?, ?)")) {
                 statement.setString(1, result.title());
