@@ -3,6 +3,7 @@ module com.stevancorre.cda.scraper {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+    requires java.desktop;
     requires sib.api.v3.sdk;
     requires htmlunit;
     requires org.mybatis;

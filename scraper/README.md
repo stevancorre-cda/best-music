@@ -43,20 +43,20 @@ $ java classes.com.stevancorre.cda.scraper.Main
 This project is using [JavaFX](https://openjfx.io/) for the GUI and [Maven](https://maven.apache.org/) for the build system.  
 The project structure is simple
 ```
-|_ resources                                # resources for the readme
-|_ src                                      # source project files
+|_ resources                                    # resources for the readme
+|_ src                                          # source project files
     |_ main
         |_ java
             |_ com/stevancorre/cda/scraper
-                |_ controllers              # javafx view controllers
-                |_ controls                 # back end
-                |_ providers                # providers
-                |_ services                 # services
-                |_ utils                    # utils classes
-                Main.java                   # application entry point
+                |_ controllers                  # javafx view controllers
+                |_ controls                     # back end
+                |_ providers                    # providers
+                |_ services                     # services
+                |_ utils                        # utils classes
+                Main.java                       # application entry point
         |_ resources
-            |_ fxml                         # javafx views
-|_ pom.xml                                  # maven config
+            |_ com/stevancorre/cda/scraper/fxml # javafx views
+|_ pom.xml                                      # maven config
 ```
 
 <br>

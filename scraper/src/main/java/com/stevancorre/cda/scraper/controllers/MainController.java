@@ -1,5 +1,6 @@
 package com.stevancorre.cda.scraper.controllers;
 
+import com.stevancorre.cda.scraper.Main;
 import com.stevancorre.cda.scraper.controllers.files.SendDatabaseController;
 import com.stevancorre.cda.scraper.controllers.files.SendEmailController;
 import com.stevancorre.cda.scraper.controls.ErrorAlert;
@@ -10,14 +11,23 @@ import com.stevancorre.cda.scraper.providers.abstraction.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
+import org.apache.ibatis.jdbc.Null;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -133,13 +143,13 @@ public final class MainController {
 
     @FXML
     private void onSendinblueSettingsMenuClick() throws IOException {
-        final Popup popup = new Popup("Sendinblue settings", "/fxml/settings/sendinblue-view.fxml", 520, 220);
+        final Popup popup = new Popup("Sendinblue settings", "/com/stevancorre/cda.scraper/fxml/settings/sendinblue-view.fxml", 520, 220);
         popup.show();
     }
 
     @FXML
     private void onDatabaseSettingsMenuClick() throws IOException {
-        final Popup popup = new Popup("Database settings", "/fxml/settings/database-view.fxml", 520, 360);
+        final Popup popup = new Popup("Database settings", "/com/stevancorre/cda.scraper/fxml/settings/database-view.fxml", 520, 360);
         popup.show();
     }
 
@@ -147,7 +157,7 @@ public final class MainController {
     private void onSendAsEmailMenuClick() throws IOException {
         final Popup popup = new Popup(
                 "Email sending",
-                "/fxml/files/mail-view.fxml",
+                "/com/stevancorre/cda.scraper/fxml/files/mail-view.fxml",
                 520, 160,
                 (final SendEmailController controller) -> controller.setResultContent(getStringResults()));
         popup.show();
@@ -157,7 +167,7 @@ public final class MainController {
     private void onSendToDbMenuClick() throws IOException {
         final Popup popup = new Popup(
                 "Database upload",
-                "/fxml/files/database-view.fxml",
+                "/com/stevancorre/cda.scraper/fxml/files/database-view.fxml",
                 520, 160,
                 (final SendDatabaseController controller) -> controller.setResults(results));
         popup.show();
@@ -263,6 +273,20 @@ public final class MainController {
                         }
                     });
         }
+    }
+
+    @FXML
+    private void onHelpMenuClick() {
+        final URL url2 = Main.class.getResource("/user-guide.pdf");
+        System.out.println(url2);
+        new Thread(() -> {
+            try {
+                final URL url = getClass().getResource("/user-guide.pdf");
+                Desktop.getDesktop().browse(new URI("file:" + url.getPath()));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void interactionsSetDisable(final boolean disable) {
