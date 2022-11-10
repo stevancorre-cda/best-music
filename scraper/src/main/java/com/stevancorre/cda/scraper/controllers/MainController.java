@@ -55,6 +55,8 @@ public final class MainController {
     private TextField minPriceInput;
     @FXML
     private TextField maxPriceInput;
+    @FXML
+    private TextField limitInput;
 
     @FXML
     private VBox providersContainer;
@@ -199,14 +201,36 @@ public final class MainController {
         try {
             minPrice = Double.parseDouble(minPriceInput.getText());
             maxPrice = Double.parseDouble(maxPriceInput.getText());
+
+            if (minPrice <= 0 || maxPrice <= 0 || maxPrice >= minPrice) {
+                final Alert alert = new ErrorAlert("Error", "Query error", "Can't have negative prices or min greater than max");
+                alert.show();
+                return;
+            }
         } catch (final Exception ignored) {
             if (!minPriceInput.getText().isEmpty() || !maxPriceInput.getText().isEmpty()) {
-                final Alert alert = new ErrorAlert("Error", "Query error", "Invalid price format, please enter doubles");
+                final Alert alert = new ErrorAlert("Error", "Query error", "Invalid price, please enter doubles");
                 alert.show();
                 return;
             }
         }
 
+        int limit;
+        try {
+            limit = Integer.parseInt(limitInput.getText());
+
+            if (limit <= 0) {
+                throw new Exception();
+            }
+        } catch (final Exception ignored) {
+            if (!limitInput.getText().isEmpty()) {
+                final Alert alert = new ErrorAlert("Error", "Query error", "Invalid limit");
+                alert.show();
+                return;
+            }
+
+            limit = 10;
+        }
         // pause interactions
         interactionsSetDisable(true);
 
@@ -222,7 +246,7 @@ public final class MainController {
         for (final Provider provider : providers) {
             provider.query(
                     new SearchQuery(titleInput.getText(), Genre.Blues, minPrice, maxPrice, null),
-                    4,
+                    limit,
                     new ProviderCallback() {
                         @Override
                         public void onDone(final SearchResult[] newResults) {
@@ -303,6 +327,7 @@ public final class MainController {
         dateInput.setValue(null);
         minPriceInput.clear();
         maxPriceInput.clear();
+        limitInput.clear();
 
         for (final ProviderCheckbox checkbox : checkboxes) {
             checkbox.setSelected(false);
