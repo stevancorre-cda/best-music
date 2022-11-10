@@ -10,36 +10,38 @@
 	<input type="text" class="form-control" placeholder="Recherchez un artiste, un titre, ..." />
 </div>
 
-<style>
+<style lang="scss">
 	.search {
 		position: relative;
 	}
 
-	.search input {
-		text-indent: 28px;
+	.search {
+		& input {
+			text-indent: 28px;
 
-		background: #d2c8bf;
-		border: 1px solid #d2c8bf;
-		border-radius: 2em;
+			background: #d2c8bf;
+			border: 1px solid #d2c8bf;
+			border-radius: 2em;
 
-		font-weight: 600;
-		color: #3a3c45;
-	}
+			font-weight: 600;
+			color: #3a3c45;
 
-	.search input:focus {
-		box-shadow: none;
-		border: 1px solid #c1b3a7;
-	}
+			&:focus {
+				box-shadow: none;
+				border: 1px solid #c1b3a7;
+			}
 
-	.search input::placeholder {
-		color: #787473;
-	}
+			&::placeholder {
+				color: #787473;
+			}
+		}
 
-	.search span {
-		position: absolute;
-		top: 50%;
-		left: 16px;
+		& span {
+			position: absolute;
+			top: 50%;
+			left: 16px;
 
-		transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
 	}
 </style>

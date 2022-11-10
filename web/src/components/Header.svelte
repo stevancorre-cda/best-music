@@ -29,16 +29,16 @@
 	</div>
 </header>
 
-<style>
+<style lang="scss">
 	h1 {
 		font-family: "Fall In Love";
 	}
 
 	ul {
 		list-style-type: none;
-	}
 
-	li {
-		cursor: pointer;
+		& li {
+			cursor: pointer;
+		}
 	}
 </style>
