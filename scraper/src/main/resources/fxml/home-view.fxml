@@ -95,10 +95,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Titre" />
+                  <Label text="Query" />
                   <Label text="Genre" GridPane.rowIndex="1" />
                   <Label text="Date" GridPane.rowIndex="2" />
-                  <Label text="Prix" GridPane.rowIndex="3" />
+                  <Label text="Price range" GridPane.rowIndex="3" />
                   <TextField fx:id="titleInput" prefHeight="26.0" prefWidth="223.0" GridPane.columnIndex="1" />
                   <ComboBox fx:id="genreInput" prefHeight="26.0" prefWidth="273.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <DatePicker fx:id="dateInput" prefHeight="26.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

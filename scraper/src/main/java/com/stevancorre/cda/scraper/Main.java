@@ -16,7 +16,7 @@ public final class Main extends Application {
      */
     @Override
     public void start(final Stage stage) throws IOException {
-        final FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/hello-view.fxml"));
+        final FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/home-view.fxml"));
         final Scene scene = new Scene(fxmlLoader.load(), 700, 770);
         stage.setTitle("Best Music Scraper");
         stage.setScene(scene);

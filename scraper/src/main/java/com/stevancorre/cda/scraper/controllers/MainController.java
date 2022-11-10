@@ -156,7 +156,7 @@ public final class MainController {
     @FXML
     private void onSendToDbMenuClick() throws IOException {
         final Popup popup = new Popup(
-                "Email sending",
+                "Database upload",
                 "/fxml/files/database-view.fxml",
                 520, 160,
                 (final SendDatabaseController controller) -> controller.setResults(results));
@@ -201,7 +201,7 @@ public final class MainController {
         interactionsSetDisable(true);
 
         progressBar.setProgress(0);
-        progressBar.setStyle("-fx-accent: #dbf6fc");
+        progressBar.setStyle("-fx-accent: #a0f6fc");
         progressIndicatorLabel.setText("Connecting...");
 
         // please don't read this shit, it works (intellij told me to do that)
@@ -228,7 +228,7 @@ public final class MainController {
 
                                 // update progress
                                 progressBar.setProgress(1);
-                                progressBar.setStyle("-fx-accent: #a0f6fc");
+                                progressBar.setStyle("-fx-accent: #6afe6e");
                                 updateProgressIndicatorLabelText(String.format("%d results found", results.size()));
 
                                 saveMenuItem.setDisable(false);
