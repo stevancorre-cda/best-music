@@ -200,7 +200,7 @@ public final class MainController {
             minPrice = Double.parseDouble(minPriceInput.getText());
             maxPrice = Double.parseDouble(maxPriceInput.getText());
         } catch (final Exception ignored) {
-            if (!minPriceInput.getText().isEmpty() && !maxPriceInput.getText().isEmpty()) {
+            if (!minPriceInput.getText().isEmpty() || !maxPriceInput.getText().isEmpty()) {
                 final Alert alert = new ErrorAlert("Error", "Query error", "Invalid price format, please enter doubles");
                 alert.show();
                 return;

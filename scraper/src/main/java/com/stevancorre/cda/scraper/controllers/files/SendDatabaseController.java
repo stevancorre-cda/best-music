@@ -40,7 +40,7 @@ public class SendDatabaseController {
         try {
             service.uploadResults(results.toArray(new SearchResult[0]));
 
-            final Alert alert = new SuccessAlert("Success", "Connection error");
+            final Alert alert = new SuccessAlert("Success", "Data uploaded to the database");
             alert.show();
         } catch (final SQLException ignored) {
             final Alert alert = new ErrorAlert("Error", "Connection error", "Can't connect to the database, please check the connection settings");

@@ -14,7 +14,7 @@ public final class SuccessAlert extends Alert {
      * @param content The alert's message
      */
     public SuccessAlert(final String title, final String header, final String content) {
-        super(AlertType.CONFIRMATION);
+        super(AlertType.INFORMATION);
 
         setTitle(title);
         setHeaderText(header);
@@ -28,7 +28,7 @@ public final class SuccessAlert extends Alert {
      * @param header The alert's header
      */
     public SuccessAlert(final String title, final String header) {
-        super(AlertType.CONFIRMATION);
+        super(AlertType.INFORMATION);
 
         setTitle(title);
         setHeaderText(header);
