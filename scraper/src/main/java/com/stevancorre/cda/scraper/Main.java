@@ -1,5 +1,6 @@
 package com.stevancorre.cda.scraper;
 
+import com.stevancorre.cda.scraper.controls.ErrorAlert;
 import com.stevancorre.cda.scraper.providers.abstraction.Genre;
 import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 import com.stevancorre.cda.scraper.services.DatabaseService;
@@ -22,19 +23,6 @@ public final class Main extends Application {
     }
 
     public static void main(final String[] args) throws SQLException, IOException {
-        final SearchResult searchResult = new SearchResult(
-                "leboncoin.com",
-                null,
-                "https://placeoh",
-                "title here",
-                "descripnio",
-                2000,
-                Genre.Blues,
-                13
-        );
-        final DatabaseService s = new DatabaseService();
-        s.uploadResults(new SearchResult[]{searchResult});
-
         launch();
     }
 }

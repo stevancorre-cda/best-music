@@ -2,8 +2,10 @@ package com.stevancorre.cda.scraper.controllers;
 
 import com.stevancorre.cda.scraper.controllers.files.SendDatabaseController;
 import com.stevancorre.cda.scraper.controllers.files.SendEmailController;
+import com.stevancorre.cda.scraper.controls.ErrorAlert;
 import com.stevancorre.cda.scraper.controls.Popup;
 import com.stevancorre.cda.scraper.controls.ProviderCheckbox;
+import com.stevancorre.cda.scraper.controls.SuccessAlert;
 import com.stevancorre.cda.scraper.providers.abstraction.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -93,7 +95,6 @@ public final class MainController {
 
     @FXML
     private void onFileSaveMenuClick() {
-        // TODO: disable button when result null, same for db export btw
         if (results == null) return;
 
         final FileChooser chooser = new FileChooser();
@@ -107,20 +108,18 @@ public final class MainController {
             final PrintWriter writer = new PrintWriter(file);
             writer.println(getStringResults());
             writer.close();
+
+            final Alert alert = new SuccessAlert("Success", "File saved");
+            alert.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        // TODO: might move to service
-        // TODO: display error
-        // TODO: display success
     }
 
     @FXML
     private void onCloseMenuClick() {
         System.out.println(dateInput);
 
-        // TODO: handle unsaved changes
         Platform.exit();
     }
 
@@ -158,10 +157,23 @@ public final class MainController {
 
     @FXML
     private void onSearchButtonClick() {
-        interactionsSetDisable(true);
+        final Provider[] providers = checkboxes
+                .stream()
+                .filter(ProviderCheckbox::isSelected)
+                .map(ProviderCheckbox::getProvider)
+                .toArray(Provider[]::new);
 
-        progressBar.setProgress(0);
-        progressIndicatorLabel.setText("Connecting...");
+        if (providers.length == 0) {
+            final Alert alert = new ErrorAlert("Error", "Query error", "Please select at least one provider");
+            alert.show();
+            return;
+        }
+
+        if (titleInput.getText().isEmpty()) {
+            final Alert alert = new ErrorAlert("Error", "Query error", "Please something to search");
+            alert.show();
+            return;
+        }
 
         Double minPrice = null;
         Double maxPrice = null;
@@ -169,13 +181,17 @@ public final class MainController {
             minPrice = Double.parseDouble(minPriceInput.getText());
             maxPrice = Double.parseDouble(maxPriceInput.getText());
         } catch (final Exception ignored) {
+            if (!minPriceInput.getText().isEmpty() && !maxPriceInput.getText().isEmpty()) {
+                final Alert alert = new ErrorAlert("Error", "Query error", "Invalid price format, please enter doubles");
+                alert.show();
+                return;
+            }
         }
 
-        final Provider[] providers = checkboxes
-                .stream()
-                .filter(ProviderCheckbox::isSelected)
-                .map(ProviderCheckbox::getProvider)
-                .toArray(Provider[]::new);
+        interactionsSetDisable(true);
+
+        progressBar.setProgress(0);
+        progressIndicatorLabel.setText("Connecting...");
 
         // please don't read this shit, it works (intellij told me to do that)
         final int[] providersDone = {0};
@@ -244,6 +260,10 @@ public final class MainController {
         dateInput.setValue(null);
         minPriceInput.clear();
         maxPriceInput.clear();
+
+        for (final ProviderCheckbox checkbox : checkboxes) {
+            checkbox.setSelected(false);
+        }
     }
 
     private void updateProgressIndicatorLabelText(final String text) {

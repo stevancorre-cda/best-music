@@ -32,4 +32,8 @@ public final class ProviderCheckbox extends Pane {
     public boolean isSelected() {
         return checkBox.isSelected();
     }
+
+    public void setSelected(final boolean selected) {
+        checkBox.setSelected(selected);
+    }
 }

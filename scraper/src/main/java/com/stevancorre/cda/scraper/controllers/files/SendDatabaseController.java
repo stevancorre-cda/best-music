@@ -1,8 +1,11 @@
 package com.stevancorre.cda.scraper.controllers.files;
 
+import com.stevancorre.cda.scraper.controls.ErrorAlert;
+import com.stevancorre.cda.scraper.controls.SuccessAlert;
 import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 import com.stevancorre.cda.scraper.services.DatabaseService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -21,9 +24,17 @@ public class SendDatabaseController {
     }
 
     @FXML
-    private void onSendButtonClick() throws SQLException, IOException {
+    private void onSendButtonClick() throws IOException {
         final DatabaseService service = new DatabaseService();
-        service.uploadResults(results.toArray(new SearchResult[0]));
+        try {
+            service.uploadResults(results.toArray(new SearchResult[0]));
+
+            final Alert alert = new SuccessAlert("Success", "Connection error");
+            alert.show();
+        } catch (final SQLException ignored) {
+            final Alert alert = new ErrorAlert("Error", "Connection error", "Can't connect to the database, please check the connection settings");
+            alert.show();
+        }
         closeStage();
     }
 

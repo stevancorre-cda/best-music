@@ -30,8 +30,6 @@ public final class SendinblueController {
 
     @FXML
     private void onSaveButtonClick() throws IOException {
-        // TODO: display error
-
         settings.setSibApiKey(apiKeyInput.getText());
         settings.setSibSenderEmail(senderEmailInput.getText());
         settings.setSibSenderName(senderNameInput.getText());

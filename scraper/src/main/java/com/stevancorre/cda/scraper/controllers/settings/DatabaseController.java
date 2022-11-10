@@ -34,8 +34,6 @@ public final class DatabaseController {
 
     @FXML
     private void onSaveButtonClick() throws IOException {
-        // TODO: display IOException
-
         settings.setDbHost(dbHostInput.getText());
         settings.setDbPort(dbPortInput.getText());
         settings.setDbName(dbNameInput.getText());
