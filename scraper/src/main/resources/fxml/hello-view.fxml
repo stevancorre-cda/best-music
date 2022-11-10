@@ -39,7 +39,7 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="sendDbMenuItem" mnemonicParsing="false" text="Send to db">
+                  <MenuItem fx:id="sendDbMenuItem" mnemonicParsing="false" onAction="#onSendToDbMenuClick" text="Send to db">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

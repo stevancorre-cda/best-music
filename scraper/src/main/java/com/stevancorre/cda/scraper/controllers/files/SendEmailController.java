@@ -9,7 +9,7 @@ import sendinblue.ApiException;
 
 import java.io.IOException;
 
-public final class EmailController {
+public final class SendEmailController {
     @FXML
     private TextField receiverInput;
 
@@ -17,7 +17,7 @@ public final class EmailController {
 
     private final MailService mailService;
 
-    public EmailController() throws IOException {
+    public SendEmailController() throws IOException {
         final SettingsService.Settings settings = SettingsService.loadSettings();
         mailService = new MailService(settings.getSibApiKey(), settings.getSibSenderEmail(), settings.getSibSenderName());
     }

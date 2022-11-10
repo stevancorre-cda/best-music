@@ -37,14 +37,20 @@ public final class DatabaseService {
     }
 
     public void uploadResults(final SearchResult[] results) throws SQLException, IOException {
-        for (final SearchResult result: results) {
+        for (final SearchResult result : results) {
             try (final PreparedStatement statement = getConnection().prepareStatement(
                     "INSERT INTO `result` (`title`, `description`, `price`, `year`, `genreId`) VALUES (?, ?, ?, ?, ?)")) {
                 statement.setString(1, result.title());
+
                 statement.setString(2, result.description());
+
                 statement.setDouble(3, result.price());
-                statement.setInt(4, result.year());
-                statement.setInt(5, result.genre().getId());
+
+                if (result.year() != null) statement.setInt(4, result.year());
+                else statement.setNull(4, Types.INTEGER);
+
+                if (result.genre() != null) statement.setInt(5, result.genre().getId());
+                else statement.setNull(5, Types.INTEGER);
 
                 statement.execute();
             }

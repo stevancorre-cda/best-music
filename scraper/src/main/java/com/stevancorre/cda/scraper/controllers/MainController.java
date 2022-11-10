@@ -1,6 +1,7 @@
 package com.stevancorre.cda.scraper.controllers;
 
-import com.stevancorre.cda.scraper.controllers.files.EmailController;
+import com.stevancorre.cda.scraper.controllers.files.SendDatabaseController;
+import com.stevancorre.cda.scraper.controllers.files.SendEmailController;
 import com.stevancorre.cda.scraper.controls.Popup;
 import com.stevancorre.cda.scraper.controls.ProviderCheckbox;
 import com.stevancorre.cda.scraper.providers.abstraction.*;
@@ -141,7 +142,17 @@ public final class MainController {
                 "Email sending",
                 "/fxml/files/mail-view.fxml",
                 520, 160,
-                (EmailController controller) -> controller.setResultContent(getStringResults()));
+                (final SendEmailController controller) -> controller.setResultContent(getStringResults()));
+        popup.show();
+    }
+
+    @FXML
+    private void onSendToDbMenuClick() throws IOException {
+        final Popup popup = new Popup(
+                "Email sending",
+                "/fxml/files/database-view.fxml",
+                520, 160,
+                (final SendDatabaseController controller) -> controller.setResults(results));
         popup.show();
     }
 
