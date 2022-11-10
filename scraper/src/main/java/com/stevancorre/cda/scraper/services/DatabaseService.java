@@ -4,29 +4,29 @@ import com.google.common.io.Resources;
 import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public final class DatabaseService {
-    private static Connection getConnection() {
+    private static Connection getConnection() throws IOException {
+        final SettingsService.Settings settings = SettingsService.loadSettings();
+
         try {
             return DriverManager.getConnection(
-                    SecretsService.DB_CONNECTION,
-                    SecretsService.DB_USER_NAME,
-                    SecretsService.DB_USER_PASSWORD);
+                    String.format(
+                            "jdbc:mysql://%s:%s/%s",
+                            settings.getDbHost(),
+                            settings.getDbPort(),
+                            settings.getDbName()),
+                    settings.getDbUserName(),
+                    settings.getDbUserPassword());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void executeScript(final String name) throws FileNotFoundException {
+    public void init(final String name) throws IOException {
         final URL url = Resources.getResource(name);
         final ScriptRunner runner = new ScriptRunner(getConnection()) {{
             setLogWriter(null);
@@ -36,9 +36,18 @@ public final class DatabaseService {
         runner.runScript(reader);
     }
 
-    public void uploadResults(final SearchResult[] results) throws SQLException {
-        try (final Statement statement = getConnection().createStatement()) {
-            statement.executeUpdate("INSERT INTO `genre` VALUES ('test')");
+    public void uploadResults(final SearchResult[] results) throws SQLException, IOException {
+        for (final SearchResult result: results) {
+            try (final PreparedStatement statement = getConnection().prepareStatement(
+                    "INSERT INTO `result` (`title`, `description`, `price`, `year`, `genreId`) VALUES (?, ?, ?, ?, ?)")) {
+                statement.setString(1, result.title());
+                statement.setString(2, result.description());
+                statement.setDouble(3, result.price());
+                statement.setInt(4, result.year());
+                statement.setInt(5, result.genre().getId());
+
+                statement.execute();
+            }
         }
     }
 }

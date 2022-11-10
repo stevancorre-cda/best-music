@@ -1,6 +1,7 @@
 package com.stevancorre.cda.scraper.providers.abstraction;
 
 import com.google.common.reflect.ClassPath;
+import com.stevancorre.cda.scraper.providers.*;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,14 @@ final class ProvidersReflection {
     }
 
     static {
-        providers = new ArrayList<>();
+        providers = new ArrayList<>() {{
+            add(new CulturefactoryProvider());
+            add(new DiscogsProvider());
+            add(new FnacProvider());
+            add(new LeboncoinProvider());
+            add(new MesVinylesProvider());
+            add(new VinylcornerProvider());
+        }};
 
         final String providersPackage = Provider.class.getPackage().getName().replaceAll("\\.abstraction$", "");
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();

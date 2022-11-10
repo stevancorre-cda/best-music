@@ -2,6 +2,7 @@ package com.stevancorre.cda.scraper.providers;
 
 import com.gargoylesoftware.htmlunit.html.*;
 import com.stevancorre.cda.scraper.providers.abstraction.Provider;
+import com.stevancorre.cda.scraper.providers.abstraction.SearchQuery;
 import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 
 import java.io.IOException;
@@ -12,8 +13,9 @@ import static com.stevancorre.cda.scraper.utils.Scraping.scrapPrice;
 
 public final class CulturefactoryProvider extends Provider {
     @Override
-    protected String getQueryUrl(final String query) {
-        return String.format("https://culturefactory.fr/recherche?controller=search&s=%s", query.replace(" ", "+"));
+    protected String getQueryUrl(final SearchQuery query) {
+        return String.format("https://culturefactory.fr/recherche?controller=search&s=%s",
+                query.query().replace(" ", "+"));
     }
 
     @Override
@@ -37,6 +39,8 @@ public final class CulturefactoryProvider extends Provider {
                 "https://via.placeholder.com/500",
                 title.getTextContent(),
                 scrapDescription(description),
+                null,
+                null,
                 scrapPrice(price));
     }
 }

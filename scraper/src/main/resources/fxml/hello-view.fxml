@@ -33,13 +33,13 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#onSendAsEmailMenuClick" text="Send as email">
+                  <MenuItem fx:id="sendEmailMenuItem" mnemonicParsing="false" onAction="#onSendAsEmailMenuClick" text="Send as email">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Send to db">
+                  <MenuItem fx:id="sendDbMenuItem" mnemonicParsing="false" text="Send to db">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

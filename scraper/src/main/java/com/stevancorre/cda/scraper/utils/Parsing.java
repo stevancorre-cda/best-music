@@ -12,4 +12,16 @@ public final class Parsing {
                 .replaceAll("[^0-9.]", "")
                 .trim());
     }
+
+    public static Integer parseYear(final String source) {
+        try {
+            final String rawYear = source
+                    .replaceAll("[^0-9]", "")
+                    .trim();
+            return Integer.parseInt(rawYear);
+        }
+        catch (final NumberFormatException ignored) {
+            return null;
+        }
+    }
 }

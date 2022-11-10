@@ -5,5 +5,7 @@ public record SearchResult(String url,
                            String imageUrl,
                            String title,
                            String description,
+                           Integer year,
+                           Genre genre,
                            double price) {
 }

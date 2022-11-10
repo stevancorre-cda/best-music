@@ -2,18 +2,25 @@ package com.stevancorre.cda.scraper.providers;
 
 import com.gargoylesoftware.htmlunit.html.*;
 import com.stevancorre.cda.scraper.providers.abstraction.Provider;
+import com.stevancorre.cda.scraper.providers.abstraction.SearchQuery;
 import com.stevancorre.cda.scraper.providers.abstraction.SearchResult;
 
 import java.io.IOException;
 import java.util.List;
 
+import static com.stevancorre.cda.scraper.utils.Formatting.formatQuery;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapDescription;
 import static com.stevancorre.cda.scraper.utils.Scraping.scrapPrice;
 
 public final class LeboncoinProvider extends Provider {
     @Override
-    protected String getQueryUrl(final String query) {
-        return String.format("https://www.leboncoin.fr/recherche?text=%s", query.replace(" ", "%20"));
+    protected String getQueryUrl(final SearchQuery query) {
+        final String priceParam = query.hasPrice() ?
+                String.format("&price=%f-%f", query.minPrice(), query.maxPrice()) : "";
+
+        return String.format("https://www.leboncoin.fr/recherche?category=26&text=%s%s",
+                formatQuery(query.query(), "%20"),
+                priceParam);
     }
 
     @Override
@@ -36,6 +43,8 @@ public final class LeboncoinProvider extends Provider {
                 "https://via.placeholder.com/500",
                 title.getTextContent(),
                 scrapDescription(description),
+                null,
+                null,
                 scrapPrice(price));
     }
 }

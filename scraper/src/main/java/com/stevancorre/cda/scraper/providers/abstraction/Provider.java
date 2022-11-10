@@ -23,7 +23,7 @@ public abstract class Provider {
         return ProvidersReflection.providers.toArray(new Provider[0]);
     }
 
-    public final void query(final String query, final int limit, final ProviderCallback callback) {
+    public final void query(final SearchQuery query, final int limit, final ProviderCallback callback) {
         final Thread thread = new Thread(() -> {
             try {
                 final ArrayList<SearchResult> results = new ArrayList<>();
@@ -36,9 +36,14 @@ public abstract class Provider {
                 for (final HtmlElement entry : entries) {
                     if (count++ >= limit) break;
 
-                    results.add(scrapNext(entry));
-
                     callback.onNext((float) count / entriesCount);
+
+                    final SearchResult result = scrapNext(entry);
+                    if (query.hasPrice() && (result.price() < query.minPrice() || result.price() > query.maxPrice())) {
+                        continue;
+                    }
+
+                    results.add(scrapNext(entry));
                 }
 
                 callback.onDone(results.toArray(new SearchResult[0]));
@@ -50,13 +55,13 @@ public abstract class Provider {
         thread.start();
     }
 
-    protected abstract String getQueryUrl(final String query);
+    protected abstract String getQueryUrl(final SearchQuery query);
 
     protected abstract List<HtmlElement> scrapEntries(final HtmlPage page);
 
     protected abstract SearchResult scrapNext(final HtmlElement source) throws IOException;
 
-    public final void query(final String query, final ProviderCallback callback) throws IOException {
+    public final void query(final SearchQuery query, final ProviderCallback callback) {
         query(query, Integer.MAX_VALUE, callback);
     }
 
